@@ -4,11 +4,11 @@
     para este país.
 */
 
-import { criarDeclaracao } from "./declaracao";
+import { gerarPrototipoDeclaracao } from "./declaracao";
 
 console.log("SALVE-DIMOB inicializado.");
 console.log("Copyright (c) 2025 Giovani (https://dlgiovani.dev | https://dlgiovani.github.io)");
-console.log("Versão Beta 0.1");
+console.log("Versão Beta 0.1, baseada na documentação do programa DIMOB versão 2.8g.");
 
-const teste = criarDeclaracao();
-console.log(teste);
+const prototipo = gerarPrototipoDeclaracao();
+console.log(prototipo);

@@ -11,13 +11,13 @@ function preencherValorPadrao(campo: tCampoComValor<iCampo>) {
     return campo?.valor || "";
 };
 
-export function criarDeclaracao<O extends tDeclaracaoModelo>()
-/*
-    O: Objeto
-    P: Primeiro nível
-    S: Segundo nível
-*/
-: {[P in keyof O]: {[S in keyof O[P]]: tCampoComValor<O[P][S]>}} {
+export function gerarPrototipoDeclaracao<O extends tDeclaracaoModelo>()
+    /*
+        O: Objeto
+        P: Primeiro nível
+        S: Segundo nível <iCampo>
+    */
+    : { [P in keyof O]: { [S in keyof O[P]]: tCampoComValor<O[P][S]> } } {
 
     const out: any = {};
 
