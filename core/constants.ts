@@ -12,7 +12,9 @@ export const FORMATOS = {
     "CPF/CNPJ2": "",
     ANO: "",
     "R$": "",
-    DATA: ""
+    DATA: "",
+    "X-UF": "",
+    "N-MUN": ""
 } as const;
 
 
@@ -30,7 +32,7 @@ const gerarInfoMensalR02 = () => {
     const output: any = {};
     for (const mes of meses) {
         /*  AVISO: ajustar para ".ordem"s receberem zeros à esquerda
-            caso primeiro índice seja < 10 algum dia */
+            caso ordem do primeiro campo seja < 10 algum dia */
         const inicio = () => comeco.inicio + ((tamanho) * indice);
 
         output[`valorAluguel${mes}`] = <iCampo>{
@@ -115,7 +117,6 @@ export const declaracaoModelo = {
             fim: 17,
             tamanho: 14,
             formato: "CNPJ",
-            obrigatorio: true
         },
         anoCalendario: <iCampo>{
             ordem: "03",
@@ -124,7 +125,6 @@ export const declaracaoModelo = {
             fim: 21,
             tamanho: 4,
             formato: "ANO",
-            obrigatorio: true
         },
         declaracaoRetificadora: <iCampo>{
             ordem: "04",
@@ -133,7 +133,6 @@ export const declaracaoModelo = {
             fim: 22,
             tamanho: 1,
             formato: "N",
-            obrigatorio: true,
             enum: [
                 { valor: "0", descricao: "Não" },
                 { valor: "1", descricao: "Sim" }
@@ -146,7 +145,6 @@ export const declaracaoModelo = {
             fim: 32,
             tamanho: 10,
             formato: "N",
-            obrigatorio: true
         },
         situacaoEspecial: <iCampo>{
             ordem: "06",
@@ -155,7 +153,6 @@ export const declaracaoModelo = {
             fim: 33,
             tamanho: 1,
             formato: "N",
-            obrigatorio: true,
             enum: [
                 { valor: "0", descricao: "Não" },
                 { valor: "1", descricao: "Sim" }
@@ -168,7 +165,6 @@ export const declaracaoModelo = {
             fim: 41,
             tamanho: 8,
             formato: "N",
-            obrigatorio: true
         },
         codigoSituacaoEspecial: <iCampo>{
             ordem: "08",
@@ -177,7 +173,6 @@ export const declaracaoModelo = {
             fim: 43,
             tamanho: 2,
             formato: "N",
-            obrigatorio: true,
             enum: [
                 { valor: "00", descricao: "Normal" },
                 { valor: "01", descricao: "Extinção" },
@@ -193,7 +188,6 @@ export const declaracaoModelo = {
             fim: 103,
             tamanho: 60,
             formato: "X",
-            obrigatorio: true
         },
         cpfResponsavel: <iCampo>{
             ordem: "10",
@@ -202,7 +196,6 @@ export const declaracaoModelo = {
             fim: 114,
             tamanho: 11,
             formato: "CPF",
-            obrigatorio: true
         },
         enderecoCompleto: <iCampo>{
             ordem: "11",
@@ -211,7 +204,6 @@ export const declaracaoModelo = {
             fim: 234,
             tamanho: 120,
             formato: "X",
-            obrigatorio: true
         },
         ufContribuinte: <iCampo>{
             ordem: "12",
@@ -219,8 +211,7 @@ export const declaracaoModelo = {
             inicio: 235,
             fim: 236,
             tamanho: 2,
-            formato: "X",
-            obrigatorio: true
+            formato: "X-UF",
         },
         codigoMunicipio: <iCampo>{
             ordem: "13",
@@ -228,8 +219,7 @@ export const declaracaoModelo = {
             inicio: 237,
             fim: 240,
             tamanho: 4,
-            formato: "N",
-            obrigatorio: true
+            formato: "N-MUN",
         },
         reservado14: <iCampo>{
             ordem: "14",
@@ -238,7 +228,6 @@ export const declaracaoModelo = {
             fim: 260,
             tamanho: 20,
             formato: "BRANCO",
-            obrigatorio: true
         },
         reservado15: <iCampo>{
             ordem: "15",
@@ -247,7 +236,6 @@ export const declaracaoModelo = {
             fim: 270,
             tamanho: 10,
             formato: "BRANCO",
-            obrigatorio: true
         },
         delimitador: <iCampo>{
             ordem: "16",
@@ -266,7 +254,8 @@ export const declaracaoModelo = {
             inicio: 1,
             fim: 3,
             tamanho: 3,
-            formato: "X"
+            formato: "X",
+            valor: "R02"
         },
         cnpjDeclarante: <iCampo>{
             ordem: "02",
@@ -274,7 +263,7 @@ export const declaracaoModelo = {
             inicio: 4,
             fim: 17,
             tamanho: 14,
-            formato: "CNPJ"
+            formato: "CNPJ",
         },
         anoCalendario: <iCampo>{
             ordem: "03",
@@ -282,7 +271,7 @@ export const declaracaoModelo = {
             inicio: 18,
             fim: 21,
             tamanho: 4,
-            formato: "ANO"
+            formato: "ANO",
         },
         sequencialLocacao: <iCampo>{
             ordem: "04",
@@ -291,6 +280,7 @@ export const declaracaoModelo = {
             fim: 28,
             tamanho: 7,
             formato: "N",
+            // varia de 0000001 a 9999999
         },
         cpfCnpjLocador: <iCampo>{
             ordem: "05",
@@ -340,8 +330,77 @@ export const declaracaoModelo = {
             tamanho: 14,
             formato: "DATA",
         },
-        ...gerarInfoMensalR02()
+        ...gerarInfoMensalR02(),
+        tipoImovel: <iCampo>{
+            ordem: "47",
+            campo: "Tipo do Imóvel",
+            inicio: 695,
+            fim: 695,
+            tamanho: 1,
+            formato: "X",
+            enum: [
+                { valor: "U", descricao: "Imóvel Urbano" },
+                { valor: "R", descricao: "Imóvel Rural" }
+            ]
+        },
+        enderecoImovel: <iCampo>{
+            ordem: "48",
+            campo: "Endereço do Imóvel",
+            inicio: 696,
+            fim: 755,
+            tamanho: 60,
+            formato: "X",
+        },
+        cep: <iCampo>{
+            ordem: "49",
+            campo: "CEP",
+            inicio: 756,
+            fim: 763,
+            tamanho: 8,
+            formato: "N",
+        },
+        codigoMunicipioImovel: <iCampo>{
+            ordem: "50",
+            campo: "Código do Município do Imóvel",
+            inicio: 764,
+            fim: 767,
+            tamanho: 4,
+            formato: "N-MUN",
+        },
+        reservado: <iCampo>{
+            ordem: "51",
+            campo: "Reservado",
+            inicio: 768,
+            fim: 787,
+            tamanho: 20,
+            formato: "BRANCO",
+        },
+        uf: <iCampo>{
+            ordem: "52",
+            campo: "UF",
+            inicio: 788,
+            fim: 789,
+            tamanho: 2,
+            formato: "X-UF",
+        },
+        reservado53: <iCampo>{
+            ordem: "53",
+            campo: "Reservado",
+            inicio: 790,
+            fim: 799,
+            tamanho: 10,
+            formato: "BRANCO",
+        },
+        delimitador: <iCampo>{
+            ordem: "54",
+            campo: "Delimitador de Registro",
+            inicio: 800,
+            fim: 801,
+            tamanho: 2,
+            formato: "EOL",
+        },
     },
+    // MARK: R03
     R03: {},
     R04: {},
     T09: {},
