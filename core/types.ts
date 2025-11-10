@@ -1,5 +1,7 @@
-import type { declaracaoModelo, FORMATOS } from "./constants"
-import type { gerarPrototipoDeclaracao } from "./declaracao"
+import type { declaracaoModelo, FORMATOS } from "./constants";
+import type { gerarPrototipoDeclaracao } from "./declaracao";
+
+export interface iCampoEnum { valor: string, descricao: string };
 
 export interface iCampo {
     ordem: string
@@ -10,7 +12,7 @@ export interface iCampo {
     formato: keyof typeof FORMATOS
     valor?: string
     obrigatorio?: boolean
-    enum?: { valor: string, descricao: string }[]
+    enum?: iCampoEnum[]
 }
 
 export type tCampoComValor<T> = T & {
