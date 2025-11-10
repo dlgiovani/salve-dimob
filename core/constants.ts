@@ -716,15 +716,16 @@ export const declaracaoModelo = {
         },
     },
     T09: {
-        tipo: <iCampo> {
+        tipo: <iCampo>{
             ordem: "01",
             campo: "Tipo",
             inicio: 1,
             fim: 2,
             tamanho: 2,
             formato: "X",
+            valor: "T09"
         },
-        reservado02: <iCampo> {
+        reservado02: <iCampo>{
             ordem: "02",
             campo: "Reservado",
             inicio: 3,
@@ -732,7 +733,7 @@ export const declaracaoModelo = {
             tamanho: 100,
             formato: "BRANCO",
         },
-        delimitador: <iCampo> {
+        delimitador: <iCampo>{
             ordem: "03",
             campo: "Delimitador de Registro",
             inicio: 103,
