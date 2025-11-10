@@ -24,7 +24,7 @@ const TIPOS_IMOVEL = <iCampoEnum[]>[
 ]
 
 
-const gerarInfoMensalR02 = () => {
+const gerarInfoMensalR02 = (): Record<string, iCampo> => {
     const meses = [
         "Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho",
         "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
@@ -35,7 +35,7 @@ const gerarInfoMensalR02 = () => {
 
     let indice = 0;
 
-    const output: any = {};
+    const output: Record<string, iCampo> = {};
     for (const mes of meses) {
         /*  AVISO: ajustar para ".ordem"s receberem zeros à esquerda
             caso ordem do primeiro campo seja < 10 algum dia */
@@ -76,7 +76,7 @@ const gerarInfoMensalR02 = () => {
 };
 
 
-export const declaracaoModelo = {
+export const definicaoDeclaracao = {
     // MARK: Header
     Header: {
         sistema: <iCampo>{
