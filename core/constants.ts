@@ -1,18 +1,18 @@
 import type { iCampo, iCampoEnum } from "./types";
 
 export const FORMATOS = {
-    BRANCO: String.fromCharCode(0x20),
-    ZERO: String.fromCharCode(0x30),
-    EOL: String.fromCharCode(0x0D, 0x0A),
-    X: "",
-    N: "",
-    CPF: "",
-    CNPJ: "",
+    "BRANCO": String.fromCharCode(0x20),
+    "ZERO": String.fromCharCode(0x30),
+    "EOL": String.fromCharCode(0x0D, 0x0A),
+    "X": "",
+    "N": "",
+    "CPF": "",
+    "CNPJ": "",
     "CPF/CNPJ": "",
     "CPF/CNPJ2": "",
-    ANO: "",
+    "ANO": "",
     "R$": "",
-    DATA: "",
+    "DATA": "",
     "X-UF": "", // UF
     "N-MUN": "", // MUNICÍPIO
     "N-SEQ": "" // SEQUENCIAL
@@ -75,6 +75,14 @@ const gerarInfoMensalR02 = (): Record<string, iCampo> => {
     return output;
 };
 
+export const secoesDeclaracao = {
+    // 'Header': 'Cabeçalho',
+    'R01': 'Dados Iniciais',
+    'R02': 'Locação',
+    'R03': 'Construção e Incorporação',
+    'R04': 'Intermediação de Venda',
+    // 'T09': 'Trailler da Declaração',
+};
 
 export const definicaoDeclaracao = {
     // MARK: Header
