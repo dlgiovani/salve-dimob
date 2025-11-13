@@ -23,6 +23,19 @@ const TIPOS_IMOVEL = <iCampoEnum[]>[
     { valor: "R", descricao: "Imóvel Rural" }
 ]
 
+const NAO_SIM = <iCampoEnum[]>[
+    { valor: "0", descricao: "Não" },
+    { valor: "1", descricao: "Sim" }
+]
+
+const SITU_ESPECIAL = <iCampoEnum[]>[
+    { valor: "00", descricao: "Normal" },
+    { valor: "01", descricao: "Extinção" },
+    { valor: "02", descricao: "Fusão" },
+    { valor: "03", descricao: "Incorporação/Incorporada" },
+    { valor: "04", descricao: "Cisão Total" },
+]
+
 
 const gerarInfoMensalR02 = (): Record<string, iCampo> => {
     const meses = [
@@ -147,10 +160,7 @@ export const definicaoDeclaracao = {
             fim: 22,
             tamanho: 1,
             formato: "N",
-            enum: [
-                { valor: "0", descricao: "Não" },
-                { valor: "1", descricao: "Sim" }
-            ]
+            enum: NAO_SIM
         },
         numeroRecibo: <iCampo>{
             ordem: "05",
@@ -167,10 +177,7 @@ export const definicaoDeclaracao = {
             fim: 33,
             tamanho: 1,
             formato: "N",
-            enum: [
-                { valor: "0", descricao: "Não" },
-                { valor: "1", descricao: "Sim" }
-            ]
+            enum: NAO_SIM
         },
         dataEventoEspecial: <iCampo>{
             ordem: "07",
@@ -187,13 +194,7 @@ export const definicaoDeclaracao = {
             fim: 43,
             tamanho: 2,
             formato: "N",
-            enum: [
-                { valor: "00", descricao: "Normal" },
-                { valor: "01", descricao: "Extinção" },
-                { valor: "02", descricao: "Fusão" },
-                { valor: "03", descricao: "Incorporação/Incorporada" },
-                { valor: "04", descricao: "Cisão Total" },
-            ]
+            enum: SITU_ESPECIAL
         },
         nomeEmpresarial: <iCampo>{
             ordem: "09",

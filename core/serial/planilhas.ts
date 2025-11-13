@@ -36,7 +36,7 @@ export const gerarPastaDeTrabalho = () => {
         gerarCabecalhoPlanilha(planilha, k);
     };
 
-    pasta.xlsx.writeFile("./teste.xlsx");
-
+    return pasta;
 
 };
+
