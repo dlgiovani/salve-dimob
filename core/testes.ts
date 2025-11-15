@@ -1,6 +1,6 @@
 import ExcelJS from "exceljs";
 import fs from "fs";
-import { definicaoDeclaracao } from "./constantes";
+import { DEFINICAO_DECLARACAO } from "./constantes";
 import { gerarDeclaracao } from "./declaracao";
 import {
   deserializarDIMOBParaDeclaracao,
@@ -254,8 +254,8 @@ export async function ChecarColunasArquivoExcel(path: string) {
     console.log(`Col ${i}: "${header[i]}" = "${dataRow[i]}"`);
   }
 
-  console.log("\n=== Expected field order from definicaoDeclaracao.R02 ===");
-  const r02Def = definicaoDeclaracao.R02;
+  console.log("\n=== Expected field order from DEFINICAO_DECLARACAO.R02 ===");
+  const r02Def = DEFINICAO_DECLARACAO.R02;
   const campos = Object.entries(r02Def);
   campos.sort(
     ([, a]: any, [, b]: any) => parseInt(a.ordem) - parseInt(b.ordem),

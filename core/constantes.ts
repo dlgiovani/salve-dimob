@@ -571,7 +571,7 @@ const gerarR04 = () => {
     };
 };
 
-export const secoesDeclaracao = {
+export const SECOES_DECLARACAO = {
     // 'Header': 'Cabeçalho',
     'R01': 'Dados Iniciais',
     'R02': 'Locação',
@@ -580,7 +580,7 @@ export const secoesDeclaracao = {
     // 'T09': 'Trailler da Declaração',
 };
 
-export const definicaoDeclaracao = {
+export const DEFINICAO_DECLARACAO = {
     // MARK: Header
     Header: {
         sistema: <iCampo>{

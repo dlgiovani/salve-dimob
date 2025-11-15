@@ -1,4 +1,4 @@
-import type { definicaoDeclaracao, FORMATOS } from "./constantes";
+import type { DEFINICAO_DECLARACAO, FORMATOS } from "./constantes";
 import type { gerarPrototipoDeclaracao } from "./declaracao";
 
 export interface iCampoEnum {
@@ -22,7 +22,7 @@ export type tCampoComValor<T> = T & {
   valor: string;
 };
 
-export type tDeclaracaoDefinicao = typeof definicaoDeclaracao;
+export type tDeclaracaoDefinicao = typeof DEFINICAO_DECLARACAO;
 
 export type tDeclaracao = {
   Header: ReturnType<typeof gerarPrototipoDeclaracao>["Header"];

@@ -1,4 +1,4 @@
-import { definicaoDeclaracao, FORMATOS } from "./constantes";
+import { DEFINICAO_DECLARACAO, FORMATOS } from "./constantes";
 import type {
   iCampo,
   tCampoComValor,
@@ -27,14 +27,14 @@ export function gerarPrototipoDeclaracao<O extends tDeclaracaoDefinicao>() /*
 : { [P in keyof O]: { [S in keyof O[P]]: tCampoComValor<O[P][S]> } } {
   const out: any = {};
 
-  for (const p in definicaoDeclaracao) {
-    const typed_p = p as keyof typeof definicaoDeclaracao;
-    out[typed_p] = {};
+  for (const chaveSecao in DEFINICAO_DECLARACAO) {
+    const secaoKey = chaveSecao as keyof typeof DEFINICAO_DECLARACAO;
+    out[secaoKey] = {};
 
-    for (const s in definicaoDeclaracao[typed_p]) {
-      const typed_s = s as keyof (typeof definicaoDeclaracao)[typeof typed_p];
-      const meta = definicaoDeclaracao[typed_p][typed_s] as iCampo;
-      out[p][s] = {
+    for (const chaveCampo in DEFINICAO_DECLARACAO[secaoKey]) {
+      const campoKey = chaveCampo as keyof (typeof DEFINICAO_DECLARACAO)[typeof secaoKey];
+      const meta = DEFINICAO_DECLARACAO[secaoKey][campoKey] as iCampo;
+      out[chaveSecao][chaveCampo] = {
         ...meta,
         valor: preencherValorPadrao(meta as tCampoComValor<iCampo>),
       };

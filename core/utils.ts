@@ -1,29 +1,29 @@
-import { definicaoDeclaracao, type FORMATOS } from "./constantes";
+import { DEFINICAO_DECLARACAO, type FORMATOS } from "./constantes";
 import type { iCampo, tDeclaracaoDefinicao } from "./types";
 
 export const buscarChavePorCampoDesc = (
-  campo_desc: string,
-  secao_chave: keyof tDeclaracaoDefinicao,
+  campoDesc: string,
+  secaoChave: keyof tDeclaracaoDefinicao,
 ) => {
-  const secao = definicaoDeclaracao[secao_chave];
+  const secao = DEFINICAO_DECLARACAO[secaoChave];
 
-  let chave_encontrada: string = "";
+  let chaveEncontrada: string = "";
 
   Object.entries(secao as Record<string, iCampo>).forEach(([chave, valor]) => {
-    if (valor.campo === campo_desc) {
-      if (chave_encontrada)
+    if (valor.campo === campoDesc) {
+      if (chaveEncontrada)
         throw new Error(
-          `Chave duplicada ${campo_desc} na planilha ${secao_chave}`,
+          `Chave duplicada ${campoDesc} na planilha ${secaoChave}`,
         );
 
-      chave_encontrada = chave;
+      chaveEncontrada = chave;
     }
   });
 
-  if (chave_encontrada.length === 0)
-    throw new Error(`Chave não encontrada: ${secao_chave}.${campo_desc}`);
+  if (chaveEncontrada.length === 0)
+    throw new Error(`Chave não encontrada: ${secaoChave}.${campoDesc}`);
 
-  return chave_encontrada;
+  return chaveEncontrada;
 };
 
 export const validarValorPorTipo = (

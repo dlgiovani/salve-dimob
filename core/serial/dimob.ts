@@ -1,4 +1,4 @@
-import { definicaoDeclaracao } from "../constantes";
+import { DEFINICAO_DECLARACAO } from "../constantes";
 import { criarNovoR02, criarNovoR03, criarNovoR04, gerarDeclaracao } from "../declaracao";
 import type { iCampo, tDeclaracao } from "../types";
 import { formatarValorParaDIMOB } from "../utils";
@@ -55,32 +55,32 @@ export const deserializarDIMOBParaDeclaracao = (conteudo: string): tDeclaracao =
 
         switch (tipo) {
             case "DIMOB":
-                deserializarRegistro(linha, declaracao.Header, definicaoDeclaracao.Header);
+                deserializarRegistro(linha, declaracao.Header, DEFINICAO_DECLARACAO.Header);
                 break;
             case "R01":
-                deserializarRegistro(linha, declaracao.R01, definicaoDeclaracao.R01);
+                deserializarRegistro(linha, declaracao.R01, DEFINICAO_DECLARACAO.R01);
                 break;
             case "R02": {
                 const r02 = criarNovoR02();
-                deserializarRegistro(linha, r02, definicaoDeclaracao.R02);
+                deserializarRegistro(linha, r02, DEFINICAO_DECLARACAO.R02);
                 declaracao.R02.push(r02);
                 break;
             }
             case "R03": {
                 const r03 = criarNovoR03();
-                deserializarRegistro(linha, r03, definicaoDeclaracao.R03);
+                deserializarRegistro(linha, r03, DEFINICAO_DECLARACAO.R03);
                 declaracao.R03.push(r03);
                 break;
             }
             case "R04": {
                 const r04 = criarNovoR04();
-                deserializarRegistro(linha, r04, definicaoDeclaracao.R04);
+                deserializarRegistro(linha, r04, DEFINICAO_DECLARACAO.R04);
                 declaracao.R04.push(r04);
                 break;
             }
             case "T09":
             case "T9":
-                deserializarRegistro(linha, declaracao.T09, definicaoDeclaracao.T09);
+                deserializarRegistro(linha, declaracao.T09, DEFINICAO_DECLARACAO.T09);
                 break;
         }
     }
