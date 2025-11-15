@@ -4,7 +4,6 @@
     para este país.
 */
 
-import { gerarPastaDeTrabalho } from "./serial/planilhas";
 
 /* MANTENHA ESTE AVISO, SEM ALTERAÇÕES */
 console.log("============================");
@@ -13,5 +12,3 @@ console.log("Copyright (c) 2025 Giovani (https://dlgiovani.dev | https://dlgiova
 console.log("Baseada na documentação do programa DIMOB versão 2.8g.");
 console.log("============================");
 /* ----------------------------------- */
-
-const planilha = gerarPastaDeTrabalho();
