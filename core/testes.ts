@@ -11,7 +11,7 @@ import {
   copiarDeclaracaoParaCaderno,
 } from "./serial/planilhas";
 
-export async function testeVaiEVolta(path_dimob: string) {
+export async function testeVaiEVoltaDimob(path_dimob: string) {
   console.log("\n=== TESTE DE ROUND-TRIP ===\n");
 
   console.log("1. Lendo arquivo DIMOB original...");
@@ -102,6 +102,141 @@ export async function testeVaiEVolta(path_dimob: string) {
   }
 
   console.log("\n=== TESTE CONCLUÍDO ===\n");
+}
+
+export async function testeVaiEVoltaExcel(path_xlsx: string) {
+  console.log("\n=== TESTE DE ROUND-TRIP COMPLETO (XLSX → DIMOB → XLSX) ===\n");
+
+  console.log("1. Lendo arquivo Excel original...");
+  const workbook1 = new ExcelJS.Workbook();
+  await workbook1.xlsx.readFile(path_xlsx);
+
+  console.log("2. Importando Excel → declaracao1...");
+  const declaracao1 = gerarDeclaracao();
+  copiarDadosDeCadernoParaDeclaracao(workbook1, declaracao1);
+  console.log(`   - R02: ${declaracao1.R02.length} registros`);
+  console.log(`   - R03: ${declaracao1.R03.length} registros`);
+  console.log(`   - R04: ${declaracao1.R04.length} registros`);
+  const totalRegistros1 =
+    declaracao1.R02.length + declaracao1.R03.length + declaracao1.R04.length;
+
+  console.log("\n3. Exportando declaracao1 → DIMOB (temp-roundtrip.txt)...");
+  const dimobTexto = serializarDeclaracaoParaDIMOB(declaracao1);
+  fs.writeFileSync("./temp-roundtrip.txt", dimobTexto);
+  const linhasDimob = dimobTexto
+    .split(/\r\n|\r|\n/)
+    .filter((l) => l.length > 0);
+  console.log(`   - Total de linhas no DIMOB: ${linhasDimob.length}`);
+
+  console.log("\n4. Importando DIMOB → declaracao2...");
+  const declaracao2 = deserializarDIMOBParaDeclaracao(dimobTexto);
+  console.log(`   - R02: ${declaracao2.R02.length} registros`);
+  console.log(`   - R03: ${declaracao2.R03.length} registros`);
+  console.log(`   - R04: ${declaracao2.R04.length} registros`);
+  const totalRegistros2 =
+    declaracao2.R02.length + declaracao2.R03.length + declaracao2.R04.length;
+
+  console.log(
+    "\n5. Exportando declaracao2 → Excel (temp-roundtrip-final.xlsx)...",
+  );
+  const workbook2 = copiarDeclaracaoParaCaderno(declaracao2);
+  await workbook2.xlsx.writeFile("./temp-roundtrip-final.xlsx");
+
+  console.log("\n6. Lendo Excel final para comparação...");
+  const workbook3 = new ExcelJS.Workbook();
+  await workbook3.xlsx.readFile("./temp-roundtrip-final.xlsx");
+
+  console.log("\n=== COMPARAÇÃO DE REGISTROS ===");
+  console.log(`Total de registros (R02+R03+R04):`);
+  console.log(`  Excel Original: ${totalRegistros1}`);
+  console.log(`  DIMOB:          ${totalRegistros2}`);
+  console.log(
+    `  Excel Final:    ${declaracao2.R02.length + declaracao2.R03.length + declaracao2.R04.length}`,
+  );
+
+  console.log("\n=== COMPARAÇÃO DE PLANILHAS ===");
+  let diferencasEncontradas = false;
+
+  workbook1.eachSheet((sheet1, sheetId) => {
+    const sheet2 = workbook3.getWorksheet(sheet1.name);
+    if (!sheet2) {
+      console.log(`❌ Planilha "${sheet1.name}" não encontrada no Excel final`);
+      diferencasEncontradas = true;
+      return;
+    }
+
+    const rows1 = sheet1.getSheetValues();
+    const rows2 = sheet2.getSheetValues();
+
+    if (!rows1 || !rows2) return;
+
+    const maxRows = Math.max(rows1.length, rows2.length);
+    let diferencasNaPlanilha = 0;
+
+    for (let i = 1; i < maxRows; i++) {
+      const row1 = rows1[i];
+      const row2 = rows2[i];
+
+      if (!row1 || !row2) {
+        if (row1 !== row2) {
+          diferencasNaPlanilha++;
+          console.log(
+            `   Linha ${i} em "${sheet1.name}": uma planilha tem linha vazia`,
+          );
+        }
+        continue;
+      }
+
+      if (!Array.isArray(row1) || !Array.isArray(row2)) continue;
+
+      const maxCols = Math.max(row1.length, row2.length);
+      for (let j = 1; j < maxCols; j++) {
+        const val1 = row1[j];
+        const val2 = row2[j];
+
+        const normalizado1 = normalizarValorExcel(val1);
+        const normalizado2 = normalizarValorExcel(val2);
+
+        if (normalizado1 !== normalizado2) {
+          diferencasNaPlanilha++;
+          console.log(
+            `   Diferença em "${sheet1.name}" linha ${i}, coluna ${j}:`,
+          );
+          console.log(`     Original: ${normalizado1}`);
+          console.log(`     Final:    ${normalizado2}`);
+        }
+      }
+    }
+
+    if (diferencasNaPlanilha === 0) {
+      console.log(`✓ Planilha "${sheet1.name}": IDÊNTICA`);
+    } else {
+      console.log(
+        `❌ Planilha "${sheet1.name}": ${diferencasNaPlanilha} diferença(s)`,
+      );
+      diferencasEncontradas = true;
+    }
+  });
+
+  console.log("\n=== VALIDAÇÃO FINAL ===");
+  const registrosPreservados = totalRegistros1 === totalRegistros2;
+  console.log(
+    `✓ Número de registros preservado: ${registrosPreservados ? "SIM" : "NÃO"}`,
+  );
+  console.log(
+    `✓ Conteúdo das planilhas: ${!diferencasEncontradas ? "IDÊNTICO" : "COM DIFERENÇAS"}`,
+  );
+
+  console.log("\n=== TESTE CONCLUÍDO ===\n");
+}
+
+function normalizarValorExcel(valor: any): string {
+  if (valor === null || valor === undefined) return "";
+  if (typeof valor === "number") return valor.toString();
+  if (valor instanceof Date) {
+    return valor.toISOString().split("T")[0] as string;
+  }
+  return String(valor).trim();
 }
 
 export async function ChecarColunasArquivoExcel(path: string) {

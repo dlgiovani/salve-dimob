@@ -225,7 +225,7 @@ export const formatarValorDeExcel = (
   switch (tipo) {
     case "DATA":
       if (valor instanceof Date) {
-        const dia = valor.getDate().toString().padStart(2, "0");
+        const dia = valor.getUTCDate().toString().padStart(2, "0");
         const mes = (valor.getMonth() + 1).toString().padStart(2, "0");
         const ano = valor.getFullYear().toString();
         return `${dia}${mes}${ano}`;
