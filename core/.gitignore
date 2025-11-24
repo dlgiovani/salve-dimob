@@ -1,3 +1,7 @@
+// Arquivos de teste
+*.txt
+*.xlsx
+
 # dependencies (bun install)
 node_modules
 
