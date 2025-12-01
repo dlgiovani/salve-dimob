@@ -4,6 +4,8 @@
     para este país.
 */
 
+import { criarNovoR01 } from "./declaracao";
+
 export { gerarDeclaracao } from "./declaracao";
 export {
   deserializarDIMOBParaDeclaracao,
@@ -13,6 +15,12 @@ export {
   copiarDadosDeCadernoParaDeclaracao,
   copiarDeclaracaoParaCaderno,
 } from "./serial/planilhas";
+export {
+  criarNovoR01,
+  criarNovoR02,
+  criarNovoR03,
+  criarNovoR04,
+} from "./declaracao";
 
 /* MANTENHA ESTE AVISO, SEM ALTERAÇÕES */
 console.log("============================");
