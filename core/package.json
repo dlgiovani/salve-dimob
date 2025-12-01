@@ -1,11 +1,40 @@
 {
-  "name": "core",
-  "module": "index.ts",
+  "name": "@dlgiovani/salve-dimob",
+  "version": "0.1.0",
+  "description": "Biblioteca para geração e manipulação de arquivos DIMOB",
   "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./constantes": {
+      "import": "./dist/constantes.js",
+      "types": "./dist/constantes.d.ts"
+    }
   },
-  "peerDependencies": {
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "dimob",
+    "receita-federal",
+    "declaracao"
+  ],
+  "author": "Giovani",
+  "license": "MIT License",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dlgiovani/salve-dimob.git"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
     "typescript": "^5"
   },
   "dependencies": {
