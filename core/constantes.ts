@@ -544,7 +544,7 @@ const gerarR04 = () => {
       inicio: 288 + offset,
       fim: 291 + offset,
       tamanho: 4,
-      formato: "N",
+      formato: "N-MUN",
     },
     reservado17: <iCampo>{
       ordem: "17",
@@ -560,7 +560,7 @@ const gerarR04 = () => {
       inicio: 312 + offset,
       fim: 313 + offset,
       tamanho: 2,
-      formato: "X",
+      formato: "X-UF",
     },
     reservado19: <iCampo>{
       ordem: "19",
