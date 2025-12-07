@@ -22,6 +22,14 @@ export {
   criarNovoR04,
 } from "./declaracao";
 
+import brasilData from "./Brasil.json";
+
+export type Estado = keyof typeof brasilData;
+export type Municipio<E extends Estado> = keyof (typeof brasilData)[E];
+
+export const Brasil = brasilData;
+export default Brasil;
+
 /* MANTENHA ESTE AVISO, SEM ALTERAÇÕES */
 console.log("============================");
 console.log("SALVE-DIMOB Versão Beta 0.1");
