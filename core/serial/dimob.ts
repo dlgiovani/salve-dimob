@@ -2,6 +2,7 @@ import { DEFINICAO_DECLARACAO } from "../constantes";
 import { criarNovoR02, criarNovoR03, criarNovoR04, gerarDeclaracao } from "../declaracao";
 import type { iCampo, tDeclaracao } from "../types";
 import { formatarValorParaDIMOB } from "../utils";
+import { setDIMOBConfig } from "../config";
 
 export const serializarDeclaracaoParaDIMOB = (declaracao: tDeclaracao): string => {
     let output = "";
@@ -44,7 +45,43 @@ const serializarRegistro = (registro: Record<string, any>): string => {
     return linha;
 };
 
+/**
+ * Detects the sequential field format by analyzing line lengths.
+ * The sequential field can be 5 or 7 digits, causing a 2-character offset
+ * in all subsequent fields of R02, R03, and R04 records.
+ *
+ * @param conteudo - DIMOB file content
+ * @returns 5 or 7 based on detected format
+ */
+export const detectSequentialFormat = (conteudo: string): 5 | 7 => {
+    const lines = conteudo.split(/\r\n|\r|\n/);
+
+    for (const line of lines) {
+        if (!line || line.length < 3) continue;
+
+        const tipo = line.substring(0, 3).trim();
+
+        // Check R02, R03, or R04 line lengths (excluding EOL)
+        // R02: 799 (5-digit) or 801 (7-digit)
+        // R03: 249 (5-digit) or 251 (7-digit)
+        // R04: 323 (5-digit) or 325 (7-digit)
+        if (tipo === "R02") {
+            return line.length >= 801 ? 7 : 5;
+        } else if (tipo === "R03") {
+            return line.length >= 251 ? 7 : 5;
+        } else if (tipo === "R04") {
+            return line.length >= 325 ? 7 : 5;
+        }
+    }
+
+    // Default to 5-digit format if no R02/R03/R04 found
+    return 5;
+};
+
 export const deserializarDIMOBParaDeclaracao = (conteudo: string): tDeclaracao => {
+    const detectedFormat = detectSequentialFormat(conteudo);
+    setDIMOBConfig({ tamanhoSequencial: detectedFormat });
+
     const declaracao = gerarDeclaracao();
     const linhas = conteudo.split(/\r\n|\r|\n/);
 

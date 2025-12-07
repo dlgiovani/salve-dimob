@@ -10,11 +10,13 @@ export { gerarDeclaracao } from "./declaracao";
 export {
   deserializarDIMOBParaDeclaracao,
   serializarDeclaracaoParaDIMOB,
+  detectSequentialFormat,
 } from "./serial/dimob";
 export {
   copiarDadosDeCadernoParaDeclaracao,
   copiarDeclaracaoParaCaderno,
 } from "./serial/planilhas";
+export { setDIMOBConfig } from "./config";
 export {
   criarNovoR01,
   criarNovoR02,
