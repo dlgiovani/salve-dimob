@@ -4,7 +4,7 @@
     para este país.
 */
 
-export { formatarValorParaExcel } from "./utils";
+export { formatarValorParaExcel, formatarValorDeExcel } from "./utils";
 
 import { criarNovoR01 } from "./declaracao";
 
