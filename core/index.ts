@@ -4,6 +4,8 @@
     para este país.
 */
 
+export { formatarValorParaExcel } from "./utils";
+
 import { criarNovoR01 } from "./declaracao";
 
 export { gerarDeclaracao } from "./declaracao";
@@ -16,6 +18,11 @@ export {
   copiarDadosDeCadernoParaDeclaracao,
   copiarDeclaracaoParaCaderno,
 } from "./serial/planilhas";
+export {
+  formatarDeclaracaoParaLeitura,
+  serializarDeclaracaoParaJSON,
+} from "./serial/json";
+export type { tDeclaracaoFormatada } from "./serial/json";
 export { setDIMOBConfig } from "./config";
 export {
   criarNovoR01,
