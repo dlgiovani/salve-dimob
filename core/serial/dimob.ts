@@ -62,15 +62,15 @@ export const detectSequentialFormat = (conteudo: string): 5 | 7 => {
         const tipo = line.substring(0, 3).trim();
 
         // Check R02, R03, or R04 line lengths (excluding EOL)
-        // R02: 799 (5-digit) or 801 (7-digit)
-        // R03: 249 (5-digit) or 251 (7-digit)
-        // R04: 323 (5-digit) or 325 (7-digit)
+        // R02: 797 (5-digit) or 799 (7-digit)
+        // R03: 247 (5-digit) or 249 (7-digit)
+        // R04: 321 (5-digit) or 323 (7-digit)
         if (tipo === "R02") {
-            return line.length >= 801 ? 7 : 5;
+            return line.length >= 799 ? 7 : 5;
         } else if (tipo === "R03") {
-            return line.length >= 251 ? 7 : 5;
+            return line.length >= 249 ? 7 : 5;
         } else if (tipo === "R04") {
-            return line.length >= 325 ? 7 : 5;
+            return line.length >= 323 ? 7 : 5;
         }
     }
 
