@@ -14,7 +14,7 @@ Caso você queira utilizar desta biblioteca, tenha em mente que a licença é GP
 ## Apoiadores
 Esta base de código é gratuita e de código aberto, e mantida por apenas 1 desenvolvedor. O seu apoio é crucial para o mantenimento desta ferramenta, se dando por correções e eventuais atualizações, tanto da biblioteca quanto do website.
 
-### Apoiadores periódicos
+### Apoiadores Periódicos
 | apoiadores que apoiam o desenvolvedor continuamente
 
 <a href="https://github.com/sponsors/dlgiovani?o=esb" style="background-color: rgb(246, 248, 250); border-radius: 6px; text-decoration: none; padding: 1rem; border: 1px solid rgb(209, 217, 224);">*seja o primeiro! <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Beating%20Heart.png" alt="Beating Heart" width="20" height="20" />*</a>
