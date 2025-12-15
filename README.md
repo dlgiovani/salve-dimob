@@ -1,6 +1,6 @@
 # SALVE-DIMOB 
 
-Script para Automação Livre de Valores Estruturados para DIMOB, ou simplesmente SALVE-DIMOB, é uma biblioteca desenvolvida conforme especificação da documentação do [programa oficial da DIMOB](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/download/pgd/dimob), versão 2.8g.
+Script para Automação Livre de Valores Estruturados para DIMOB, ou simplesmente SALVE-DIMOB, é uma biblioteca desenvolvida conforme especificação da documentação do [programa oficial da DIMOB](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/download/pgd/dimob), versão `2.8g`.
 Serve o propósito de organizar e auxiliar a geração da DIMOB, completo e de maneira amigável ao usuário.
 
 O ecossistema atual consiste na biblioteca em `core/`, e no Site de Aplicação Livre e Vantagem Estratégica para DIMOB, ou simplesmente SALVE-DIMOB, temporariamente disponível em [salve-dimob-site.vercel.app](salve-dimob-site.vercel.app) (será migrado para outro endereço, no futuro).
