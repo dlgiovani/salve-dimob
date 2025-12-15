@@ -26,6 +26,6 @@ Esta base de código é gratuita e de código aberto, e mantida por apenas 1 des
 
 [Baggio Imóveis](https://baggioimoveis.com.br)
 
-
+<br/>
 
 Este ecossistema não existiria sem este apoio. Um grande agradecimento a todos os presentes na lista acima <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Beating%20Heart.png" alt="Beating Heart" width="25" height="25" />
