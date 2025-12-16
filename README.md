@@ -9,7 +9,7 @@ Tanto a biblioteca quanto o website estão em versão BETA. Isso significa que s
 
 O ecossistema tem como filosofia ser de fácil acesso e entendimento, com foco em performance e privacidade. O usuário deve saber o que acontecerá com cada ação feita intuitivamente, e qualquer ação que o usuário espere que seja possível deve de fato ser.
 
-Caso você queira utilizar desta biblioteca, tenha em mente que a licença é GPL. Isso significa que o seu software que implementa código aqui disposto **não pode ser proprietário**. Esta base de código também provê zero garantias quanto ao seu uso. Mais informações no arquivo LICENSE. Para licenças customizadas, fale com o desenvolvedor.
+Caso você queira utilizar esta biblioteca, tenha em mente que a licença é GPL. Isso significa que o seu software que implementa código aqui disposto **não pode ser proprietário**. Esta base de código também provê zero garantias quanto ao seu uso. Mais informações no arquivo LICENSE. Para licenças customizadas, fale com o desenvolvedor.
 
 ## Apoiadores
 Esta base de código é gratuita e de código aberto, e mantida por apenas 1 desenvolvedor. O seu apoio é crucial para o mantenimento desta ferramenta, se dando por correções e eventuais atualizações, tanto da biblioteca quanto do website.
