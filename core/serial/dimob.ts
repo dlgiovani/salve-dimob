@@ -1,28 +1,65 @@
+import { setDIMOBConfig } from "../config";
 import { DEFINICAO_DECLARACAO } from "../constantes";
 import { criarNovoR02, criarNovoR03, criarNovoR04, gerarDeclaracao } from "../declaracao";
 import type { iCampo, tDeclaracao } from "../types";
 import { formatarValorParaDIMOB } from "../utils";
-import { setDIMOBConfig } from "../config";
 
 export const serializarDeclaracaoParaDIMOB = (declaracao: tDeclaracao): string => {
     let output = "";
 
-    output += serializarRegistro(declaracao.Header);
-    output += serializarRegistro(declaracao.R01);
-
-    for (const r02 of declaracao.R02) {
-        output += serializarRegistro(r02);
+    try {
+        output += serializarRegistro(declaracao.Header);
+    } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+        throw new Error(`${msg}: em Header.`);
     }
 
-    for (const r03 of declaracao.R03) {
-        output += serializarRegistro(r03);
+    try {
+        output += serializarRegistro(declaracao.R01);
+    } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+        throw new Error(`${msg}: em R01.`);
     }
 
-    for (const r04 of declaracao.R04) {
-        output += serializarRegistro(r04);
+    let linha = 0;
+    try {
+        for (const r02 of declaracao.R02) {
+            linha++;
+            output += serializarRegistro(r02);
+        }
+    } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+        throw new Error(`${msg}: em R02 na linha ${linha}.`);
     }
 
-    output += serializarRegistro(declaracao.T09);
+    linha = 0;
+    try {
+        for (const r03 of declaracao.R03) {
+            linha++;
+            output += serializarRegistro(r03);
+        }
+    } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+        throw new Error(`${msg}: em R03 na linha ${linha}.`);
+    }
+
+    linha = 0;
+    try {
+        for (const r04 of declaracao.R04) {
+            linha++;
+            output += serializarRegistro(r04);
+        }
+    } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+        throw new Error(`${msg}: em R04 na linha ${linha}.`);
+    }
+
+    try {
+        output += serializarRegistro(declaracao.T09);
+    } catch (error) {
+        const msg = error instanceof Error ? error.message : String(error);
+        throw new Error(`${msg}: em T09.`);
+    }
 
     return output;
 };
@@ -34,12 +71,17 @@ const serializarRegistro = (registro: Record<string, any>): string => {
     campos.sort((a, b) => parseInt(a.ordem) - parseInt(b.ordem));
 
     for (const campo of campos) {
-        const valorFormatado = formatarValorParaDIMOB(
-            campo.valor,
-            campo.formato,
-            campo.tamanho
-        );
-        linha += valorFormatado;
+        try {
+            const valorFormatado = formatarValorParaDIMOB(
+                campo.valor,
+                campo.formato,
+                campo.tamanho
+            );
+            linha += valorFormatado;
+        } catch (error) {
+            const msg = error instanceof Error ? error.message : String(error);
+            throw new Error(`${msg} (campo: ${campo.campo})`);
+        }
     }
 
     return linha;
