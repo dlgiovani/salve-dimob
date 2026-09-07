@@ -1,0 +1,9 @@
+
+# Real DIMOB filings — tax data, never commit
+*.xlsx
+*.xls
+DIMOB*.json
+DIMOB*.txt
+dimob*.txt
+dimob*.json
+dimob-*-CNPJ-*.txt
